@@ -27,3 +27,5 @@ Flix is an app that allows users to browse movies from the [The Movie Database A
 
 ### Notes
 Describe any challenges encountered while building the app.
+- I struggled with the Cocopods because I added more dependencies than required for the work.
+- I also struggled with trying to work it on my phone. I will try this later today to make it work on my phone!
