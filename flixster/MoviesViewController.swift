@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AlamofireImage
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -65,23 +66,39 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.titleLabel.text = title
         cell.synopsisLabel.text = synopsis
         
-        let baseUrl = "http://image.tmdb.org/t/p/w185"
+        let baseUrl = "https://image.tmdb.org/t/p/w185"
         let posterPath = movie["poster_path"] as! String
         let posterUrl = URL(string: baseUrl + posterPath)
         
-        
+        //remember the ?? are about optionals!
+        cell.posterView.af_setImage(withURL: posterUrl!)
         
         return cell
     }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //when you leave the screen, and prepare the NEXT screen
+    // Task 1 - find selected movie
+    // Task 2 - Pass selected movie to details view controller
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        //Task 1 - find selected movie
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let movie = movies[indexPath.row]
+        
+        //Task 2 - Store movie into details controller
+        let detailsViewController = segue.destination as! MovieDetailsViewController
+        detailsViewController.movie = movie
+        
+        //while transitioning, this disables the highlighted feature of each cell that was selected
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-    */
+    
 
 }
